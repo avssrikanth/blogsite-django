@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{%load staticfiles%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!---BOOTSTRAP-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!---MEDIUM TEXT EDITOR-->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!---my own css-->
+    <link rel="stylesheet" href="{% static 'css/blog.css'%}"> 
+     <!---google fonts-->
+     <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One&display=swap" rel="stylesheet">
+    <title>SRIKANTH BLOG</title>
+</head>
+<body>
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark techfont custom-navbar ">
+            <!-- Brand -->
+            <a class="navbar-brand bigbrand" href="{% url 'post_list'%}" ><img src="{% static 'images/favicon.jpg'%}" width="30" height="30" class="d-inline-block " alt=""></img>SRIKANTH</a>
+          
+            <!-- Links -->
+            <ul class="navbar-nav ">
+             
+                  <li class="nav-item" >
+                    <a class="nav-link" href="http://www.avssrikanth.me">AboutMe    |</a>
+                  </li>
+                  
+           
+              {% if user.is_authenticated %}
+                 <li class="nav-item">
+                    <a class="nav-link"href="{%url 'post_new'%}">New Post    |</a>
+                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link"href="{%url 'post_draft_list'%}">Drafts    |</a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="{%url 'logout'%}">Log out    |</a>
+                    </li>
+                <li  class="nav-item">
+                    <a class="nav-link">Welcome:{{user.username}}</a>
+                </li>          
+              {% else%}
+                  <li class="nav-item">
+                    <a class="nav-link"href="{%url 'login'%}"><span class="glyphicon glyphicon-user"></span>Login</a>
+                   </li>
+              {%endif%}
+    </ul>
+</nav>
+  <!---CONTENT BLOCK-->
+<div class="content container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class='blog_posts'>
+                {%block content%}
+                {%endblock%}
+            </div>
+        </div>
+    </div>
+</div>
+    
+</body>
+</html>

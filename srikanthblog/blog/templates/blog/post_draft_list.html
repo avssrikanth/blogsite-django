@@ -1,0 +1,10 @@
+{% extends "blog/base.html"%}
+{%block content%}
+{%for x in Post%}
+<div class='post'>
+    <p class='date'>created:{{x.create_date|date:'d-m-y'}}</p>
+    <h1><a href="{%url 'post_detail' pk=i.pk%}">{{x.title}}</a></h1>
+    <a href="{% url 'post_detail' pk=i.pk %}" class="btn btn-success">publish</a>
+    <p>{{x.text|truncatechars:300}}</p>
+</div>
+{%endblock%}

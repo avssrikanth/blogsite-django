@@ -1,0 +1,49 @@
+{% extends "blog/base.html"%}
+{%block content%}
+
+<h1 calss="posttitle loader" >{{post.title|upper}}</h1>
+
+
+{% if post.publish_date%}
+<p class="postcontetnt ">{{post.text|safe|linebreaksbr}}</p>
+ <div class="date postdate">
+     {{post.publish_date}}
+</div>
+{%else%}
+<a class="btn btn-primary"href="{%url 'post_publish' pk=post.pk %}">Publish</a>
+<p class="postcontetnt ">{{post.text|safe|linebreaksbr}}</p>
+{%endif%}
+{%if user.is_authenticated%}
+ <a class='btn btn-primary'href="{% url 'post_edit' pk=post.pk %}">
+     <span class="glyphicon glyphicon-pencil "></span>Edit
+ </a>
+ <a class='btn btn-danger'href="{% url 'post_remove' pk=post.pk %}">
+        <span class="glyphicon glyphicon-remove"></span> Remove
+    </a>
+{%endif%}
+<hr>
+<a  class="btn btn-success" href="{% url 'add_comment_to_post' pk=post.pk %}">ADD COMMENT</a>
+<div class="container">
+    {%for j in post.comment.all%}
+    <br>
+    {%if user.is_authenticated or j.approved_comment%}
+    {{j.create_date}}
+    <br>
+        {%if not j.approve_comments%}
+            <a class='btn btn-dark'href="{% url 'comment_approve' pk=j.pk %}">
+                <span class="glyphicon glyphicon-ok "></span>Approve
+            </a>
+            <a class='btn btn-dark'href="{% url 'comment_remove' pk=j.pk %}">
+                <span class="glyphicon glyphicon-remove"></span> Remove
+            </a>
+        {%endif%} 
+        
+     <h4>{{j.text|safe|linebreaksbr}}</h4>
+     <h5><span class="glyphicon glyphicon-user"></span>{{j.author}}</h5>
+      
+    {%endif%}
+    {%empty%}<!---if nothing found use this tag-->
+    <p>No Comments!</p>
+    {%endfor%} 
+</div>
+{%endblock%}

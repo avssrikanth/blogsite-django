@@ -1,0 +1,8 @@
+{% extends "blog/base.html"%}
+{%block content%}
+<form method="POST">
+    {%csrf_token%}
+    <h2><p>Are you sure you want to delete post :</a></p></h2>
+    <input type="submit"class="btn btn-danger" value="confirm"> 
+</form>
+{%endblock%}
